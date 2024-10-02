@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-logger
+  namespace: default # Change this to your desired namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pod-logger
+  template:
+    metadata:
+      labels:
+        app: pod-logger
+    spec:
+      serviceAccountName: pod-logger-sa # Ensure your pod uses the service account
+      containers:
+        - name: pod-logger
+          image: atishayshukla/pod-logger:v2 # Replace with your image
+          ports:
+            - containerPort: 8080

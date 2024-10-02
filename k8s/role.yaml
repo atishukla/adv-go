@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default # Change this to your desired namespace
+  name: pod-logger-role
+rules:
+  - apiGroups: [""] # "" indicates the core API group
+    resources: ["pods", "pods/status"]
+    verbs: ["get", "list"]

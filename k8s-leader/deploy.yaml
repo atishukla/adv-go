@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-logger
+  namespace: default # Change this to your desired namespace
+spec:
+  replicas: 2   # for leadership test this will be 2
+  selector:
+    matchLabels:
+      app: pod-logger
+  template:
+    metadata:
+      labels:
+        app: pod-logger
+    spec:
+      serviceAccountName: pod-logger-sa # Ensure your pod uses the service account
+      containers:
+        - name: pod-logger
+          image: atishayshukla/pod-logger:v3 # Update version
+          env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
